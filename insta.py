@@ -5,6 +5,10 @@ import requests
 
 import utils
 
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
 
 class GetOriginalMedia():
     def __init__(self, url:str) -> None:
@@ -12,6 +16,8 @@ class GetOriginalMedia():
         self.success = None
         self.media_url = None
         self.message = "Ocorreu um erro ao converte o link"
+
+        logging.info(url)
 
 
         # url vazia
@@ -68,8 +74,10 @@ class GetOriginalMedia():
                         media_url = response.json()['data']['xdt_shortcode_media']['video_url']
 
                         self.success = True
-                        self.message = 'Ok'
+                        self.message = 'Reels Encontrado'
                         self.media_url = media_url
+
+                        logging.info(media_url)
 
                     except Exception as e:
                         self.message = f'Ocorreu um erro ({e})'
@@ -84,3 +92,5 @@ class GetOriginalMedia():
         else:
             self.message = 'a URL está vazia'
 
+
+        logging.info(self.message)
